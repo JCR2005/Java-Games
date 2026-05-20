@@ -31,6 +31,23 @@ mvn package
 java -cp target/classes main.Main
 ```
 
+## Documentation
+
+- User Manual (EN): `docs/USER_MANUAL_EN.md`
+- Technical Manual (EN): `docs/TECHNICAL_MANUAL_EN.md`
+
+## Screenshots
+
+For a professional portfolio, add screenshots to `docs/images/` and reference them in the README and in the User Manual.
+
+Example:
+
+```
+![Wordle](docs/images/wordle.png)
+![Basketball](docs/images/basketball.png)
+![2048](docs/images/2048.png)
+```
+
 ---
 
 # Java-Games (Español)
@@ -64,4 +81,21 @@ Alternativamente, para compilar y ejecutar directamente desde los archivos compi
 ```bash
 mvn package
 java -cp target/classes main.Main
+```
+
+## Documentación
+
+- Manual de Usuario (ES): `docs/USER_MANUAL_ES.md`
+- Manual Técnico (ES): `docs/TECHNICAL_MANUAL_ES.md`
+
+## Capturas
+
+Para un portafolio más profesional, agrega capturas en `docs/images/` y referéncialas en el README y en el Manual de Usuario.
+
+Ejemplo:
+
+```
+![Wordle](docs/images/wordle.png)
+![Basketball](docs/images/basketball.png)
+![2048](docs/images/2048.png)
 ```

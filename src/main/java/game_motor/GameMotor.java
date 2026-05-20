@@ -3,7 +3,10 @@ package game_motor;
 import java.util.Random;
 import java.util.Scanner;
 
+import games.Basketball;
+import games.Game2048;
 import games.Wordle;
+import utils.GameStats;
 import utils.Posters;
 
 public class GameMotor {
@@ -13,6 +16,8 @@ public class GameMotor {
     private final Scanner imputUSer = new Scanner(System.in);
 
     private final Wordle wordleGame = new Wordle();
+    private final Basketball basketballGame = new Basketball();
+    private final Game2048 game2048 = new Game2048();
 
     /**
      * Este metodo inicia el motor del juego.
@@ -77,6 +82,9 @@ public class GameMotor {
 
             switch (option) {
                 case "1" -> this.wordleGame.startWordle();
+                case "2" -> this.basketballGame.startBasketball();
+                case "3" -> this.game2048.start2048();
+                case "4" -> this.showStatsMenu();
 
                 case "0" -> {
                     return;
@@ -103,9 +111,51 @@ public class GameMotor {
             // Este caos dirige al usuario al juego uno
             case 1 ->
                 this.wordleGame.startWordle();
+            case 2 ->
+                this.basketballGame.startBasketball();
+            case 3 ->
+                this.game2048.start2048();
 
             default ->
                 throw new AssertionError();
+        }
+    }
+
+    /**
+     * Displays the statistics menu and prints game counters.
+     */
+    private void showStatsMenu() {
+        while (true) {
+            posters.showStatsMenu();
+
+            String option = imputUSer.nextLine();
+            switch (option) {
+                case "1" -> {
+                    posters.showWordleStats(
+                            GameStats.getWordleStarted(),
+                            GameStats.getWordleAttempts(),
+                            GameStats.getWordleWins(),
+                            GameStats.getWordleLosses()
+                    );
+                    imputUSer.nextLine();
+                }
+                case "2" -> {
+                    posters.showBasketballStats(GameStats.getBasketballStarted());
+                    imputUSer.nextLine();
+                }
+                case "3" -> {
+                    posters.show2048Stats(
+                            GameStats.get2048Started(),
+                            GameStats.get2048Wins(),
+                            GameStats.get2048Exits()
+                    );
+                    imputUSer.nextLine();
+                }
+                case "0" -> {
+                    return;
+                }
+                default -> posters.showMesageWarningMemu(imputUSer);
+            }
         }
     }
 }

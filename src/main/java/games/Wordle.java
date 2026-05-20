@@ -1,7 +1,12 @@
 package games;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
+import utils.DiccionaryWords;
+import utils.GameStats;
 import utils.Posters;
 
 public class Wordle {
@@ -33,6 +38,10 @@ public class Wordle {
     // variable que almacena el numero de letras de la palabra ingresada por el usuario para el juego wordle.
     private boolean onePlayer;
 
+    private final DiccionaryWords diccionaryWords = new DiccionaryWords();
+    private final Random random = new Random();
+    private boolean dictionaryLoaded = false;
+
     /**
      * Este metodo inicia el juego wordle.
      * 
@@ -56,13 +65,16 @@ public class Wordle {
             optionMenu = imputUSer.nextLine();
             switch (optionMenu) {
                 case "1" -> {
+                    posters.showWordleInstructions();
+                    imputUSer.nextLine();
                 }
                 case "2" -> {
                     this.setOnePlayer(false);
                     this.playWordle();
                 }
                 case "3" -> {
-                    return;
+                    this.setOnePlayer(true);
+                    this.playWordle();
                 }
                 case "4" -> {
                     return;
@@ -81,6 +93,7 @@ public class Wordle {
      */
     private void playWordle() {
 
+        GameStats.registerWordleStart();
         preparationGame();
         gameMotor();
 
@@ -90,12 +103,18 @@ public class Wordle {
      *  Este metodo prepara el juego wordle.
      */
     private void preparationGame() {
-
-       
-        do{
-               this.wordleWord = getWordleWord();
-        }while (!this.wordConfirmation());
-
+        if (this.onePlayer) {
+            this.wordleWord = getRandomDictionaryWord();
+            if (this.wordleWord == null) {
+                do {
+                    this.wordleWord = getWordleWord();
+                } while (!this.wordConfirmation());
+            }
+        } else {
+            do {
+                this.wordleWord = getWordleWord();
+            } while (!this.wordConfirmation());
+        }
         this.preparationArrays();
 
     }
@@ -150,6 +169,7 @@ public class Wordle {
                 posters.showWarningWordIsLength(imputUSer);
             }else{
               historyWords[attemp-1] = wordImout.split("");
+                            GameStats.registerWordleAttempt();
 
               return wordImout;
 
@@ -179,8 +199,10 @@ public class Wordle {
         }
 
         if(wordIsCorrect){
+            GameStats.registerWordleWin();
             playerWin(attemp);
         }else if(attemp == this.attempts){
+            GameStats.registerWordleLoss();
             playerWin(attemp);
 
             System.out.println("Has perdido, la palabra era: " + this.wordleWord);
@@ -463,5 +485,39 @@ public class Wordle {
 
         this.onePlayer = value;
 
+    }
+
+    /**
+     * Loads the dictionary file once and selects a random 5-letter word.
+     *
+     * @return a random word or null if none is available
+     */
+    private String getRandomDictionaryWord() {
+
+        ensureDictionaryLoaded();
+
+        List<String> candidates = new ArrayList<>();
+        for (String word : diccionaryWords.getWords()) {
+            String cleaned = word.strip();
+            if (cleaned.length() == 5 && cleaned.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+")) {
+                candidates.add(cleaned.toLowerCase());
+            }
+        }
+
+        if (candidates.isEmpty()) {
+            return null;
+        }
+
+        return candidates.get(random.nextInt(candidates.size()));
+    }
+
+    /**
+     * Ensures the dictionary list is loaded once from disk.
+     */
+    private void ensureDictionaryLoaded() {
+        if (!dictionaryLoaded) {
+            diccionaryWords.readWordsFromFile();
+            dictionaryLoaded = true;
+        }
     }
 }
