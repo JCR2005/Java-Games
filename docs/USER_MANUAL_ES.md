@@ -40,13 +40,11 @@ Java-Games es una colección de mini‑juegos en consola: Wordle, Basketball y 2
 - Si no hay movimientos disponibles, el juego termina.
 
 ## Capturas
-Agrega capturas en `docs/images/` y referéncialas en el README o aquí. Ejemplo:
+Las capturas están en `docs/images/`.
 
-```
 ![Wordle](images/wordle.png)
 ![Basketball](images/basketball.png)
 ![2048](images/2048.png)
-```
 
 ## Solución de Problemas
 - Si la entrada falla, presiona Enter y vuelve a intentar.

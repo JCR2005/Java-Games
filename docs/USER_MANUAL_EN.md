@@ -40,13 +40,11 @@ Java-Games is a console collection of mini-games: Wordle, Basketball, and 2048. 
 - If no moves remain, the game ends.
 
 ## Screenshots
-Add screenshots in `docs/images/` and reference them in the README or here. Example:
+Screenshots are stored in `docs/images/`.
 
-```
 ![Wordle](images/wordle.png)
 ![Basketball](images/basketball.png)
 ![2048](images/2048.png)
-```
 
 ## Troubleshooting
 - If input looks incorrect, press Enter and retry.

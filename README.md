@@ -38,15 +38,11 @@ java -cp target/classes main.Main
 
 ## Screenshots
 
-For a professional portfolio, add screenshots to `docs/images/` and reference them in the README and in the User Manual.
+Screenshots are stored in `docs/images/`.
 
-Example:
-
-```
 ![Wordle](docs/images/wordle.png)
 ![Basketball](docs/images/basketball.png)
 ![2048](docs/images/2048.png)
-```
 
 ---
 
@@ -90,12 +86,8 @@ java -cp target/classes main.Main
 
 ## Capturas
 
-Para un portafolio más profesional, agrega capturas en `docs/images/` y referéncialas en el README y en el Manual de Usuario.
+Las capturas están en `docs/images/`.
 
-Ejemplo:
-
-```
 ![Wordle](docs/images/wordle.png)
 ![Basketball](docs/images/basketball.png)
 ![2048](docs/images/2048.png)
-```
